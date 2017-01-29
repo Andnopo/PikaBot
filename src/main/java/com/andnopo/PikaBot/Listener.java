@@ -96,20 +96,6 @@ public class Listener {
                     return;
                 }
 
-
-
-
-
-                 if (m.toLowerCase().startsWith("invite")) {
-                    event.getMessage().getChannel().sendMessage("", new EmbedBuilder().withColor(Color.decode("#ffec23")).withDescription("\uD83D\uDCBB Invite the bot \n https://discordapp.com/oauth2/authorize?client_id=226431294010163200&scope=bot&permissions=1278250048").withFooterIcon("http://i.imgur.com/hFYlfGW.gif").withFooterText("Pika Bot").withTimestamp(System.currentTimeMillis()).build(), false);
-                    return;
-                }
-
-                if (m.toLowerCase().startsWith("join")) {
-                    event.getMessage().getChannel().sendMessage("", new EmbedBuilder().withColor(Color.decode("#ffec23")).withDescription("\uD83D\uDCBB Join the server \n https://discord.me/pikabot").withFooterIcon("http://i.imgur.com/hFYlfGW.gif").withFooterText("Pika Bot").withTimestamp(System.currentTimeMillis()).build(), false);
-                    return;
-                }
-
                 if (m.toLowerCase().startsWith("play ")) {
                     String cmd = "play";
                     String arg = m.toLowerCase().replace(cmd + " ", "");
