@@ -137,8 +137,8 @@ public class Listener {
                         return;
                     }
 
-                    if (m.toLowerCase().startsWith("que")) {
-                        try (FileReader file = new FileReader("que.json")) {
+                    if (m.toLowerCase().startsWith("queue")) {
+                        try (FileReader file = new FileReader("queue.json")) {
 
                             BufferedReader read = new BufferedReader(file);
 
@@ -147,7 +147,7 @@ public class Listener {
                             List<String> ques = new ArrayList<String>();
 
                             JSONObject jsonf = new JSONObject(filer);
-                            JSONArray list = jsonf.getJSONArray("que");
+                            JSONArray list = jsonf.getJSONArray("queue");
                             for (int i = 0; i < list.length(); i++) {
                                 String url = list.getJSONObject(i).getString("name");
                                 ques.add(url);
@@ -155,18 +155,18 @@ public class Listener {
 
                             if (ques.size() > 5) {
                                 if (ques.size() == 6) {
-                                    EmbedObject em = new EmbedBuilder().withColor(Color.decode("#2bffdb")).withTitle("Que").withDesc("1⃣ - " + ques.get(0) + "\n2⃣ - " + ques.get(1) + "\n3⃣ - " + ques.get(2) + "\n4⃣ - " + ques.get(3) + "\n5⃣ - " + ques.get(4) + "\n...and " + String.valueOf(ques.size() - 5) + " more song").withTimestamp(System.currentTimeMillis()).withFooterIcon("http://i.imgur.com/hFYlfGW.gif").withFooterText(ques.size() + " total").build();
+                                    EmbedObject em = new EmbedBuilder().withColor(Color.decode("#2bffdb")).withTitle("Queue").withDesc("1⃣ - " + ques.get(0) + "\n2⃣ - " + ques.get(1) + "\n3⃣ - " + ques.get(2) + "\n4⃣ - " + ques.get(3) + "\n5⃣ - " + ques.get(4) + "\n...and " + String.valueOf(ques.size() - 5) + " more song").withTimestamp(System.currentTimeMillis()).withFooterIcon("http://i.imgur.com/hFYlfGW.gif").withFooterText(ques.size() + " total").build();
                                     event.getMessage().getChannel().sendMessage("", em, false);
                                 }
                                 if (ques.size() > 6) {
-                                    EmbedObject em = new EmbedBuilder().withColor(Color.decode("#2bffdb")).withTitle("Que").withDesc("1⃣ - " + ques.get(0) + "\n2⃣ - " + ques.get(1) + "\n3⃣ - " + ques.get(2) + "\n4⃣ - " + ques.get(3) + "\n5⃣ - " + ques.get(4) + "\n... " + String.valueOf(ques.size() - 5) + " more songs").withTimestamp(System.currentTimeMillis()).withFooterIcon("http://i.imgur.com/hFYlfGW.gif").withFooterText(ques.size() + " total").build();
+                                    EmbedObject em = new EmbedBuilder().withColor(Color.decode("#2bffdb")).withTitle("Queue").withDesc("1⃣ - " + ques.get(0) + "\n2⃣ - " + ques.get(1) + "\n3⃣ - " + ques.get(2) + "\n4⃣ - " + ques.get(3) + "\n5⃣ - " + ques.get(4) + "\n... " + String.valueOf(ques.size() - 5) + " more songs").withTimestamp(System.currentTimeMillis()).withFooterIcon("http://i.imgur.com/hFYlfGW.gif").withFooterText(ques.size() + " total").build();
                                     event.getMessage().getChannel().sendMessage("", em, false);
                                 }
                             }
 
                             if (ques.size() == 5) {
 
-                                EmbedObject em = new EmbedBuilder().withColor(Color.decode("#2bffdb")).withTitle("Que").withDesc("1⃣ - " + ques.get(0) + "\n2⃣ - " + ques.get(1) + "\n3⃣ - " + ques.get(2) + "\n4⃣ - " + ques.get(3) + "\n5⃣ - " + ques.get(4)).withTimestamp(System.currentTimeMillis()).withFooterIcon("http://i.imgur.com/hFYlfGW.gif").withFooterText(ques.size() + " total").build();
+                                EmbedObject em = new EmbedBuilder().withColor(Color.decode("#2bffdb")).withTitle("Queue").withDesc("1⃣ - " + ques.get(0) + "\n2⃣ - " + ques.get(1) + "\n3⃣ - " + ques.get(2) + "\n4⃣ - " + ques.get(3) + "\n5⃣ - " + ques.get(4)).withTimestamp(System.currentTimeMillis()).withFooterIcon("http://i.imgur.com/hFYlfGW.gif").withFooterText(ques.size() + " total").build();
                                 event.getMessage().getChannel().sendMessage("", em, false);
                             }
 
@@ -178,7 +178,7 @@ public class Listener {
                         }
                         return;
                     }
-                    //event.getMessage().addReaction("❓");
+
                 }
             }
 }

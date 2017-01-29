@@ -17,14 +17,14 @@ import java.net.URL;
 
 public class Youtube {
     public static void play(String id, IUser user, MessageReceivedEvent event) throws IOException, RateLimitException, DiscordException, MissingPermissionsException {
-        JSONObject jsonf = new JSONObject(IOUtils.toString(new URL("https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id=" + id + "&key" + Keys.get.ytKey), "UTF-8"));
+        JSONObject jsonf = new JSONObject(IOUtils.toString(new URL("https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id=" + id + "&key" + Keys.ytKey), "UTF-8"));
         JSONObject j = jsonf.getJSONArray("items").getJSONObject(0).getJSONObject("snippet");
         build(j.getString("title"), j.getString("channelTitle"), user, event);
         MPlayer.play(id);
     }
 
     public static void find(String q, IUser user, MessageReceivedEvent event) throws IOException, RateLimitException, DiscordException, MissingPermissionsException {
-        JSONObject jsonf = new JSONObject(IOUtils.toString(new URL("https://www.googleapis.com/youtube/v3/search?part=id%2C+snippet&q=" + q.replace(" ", "+") + "&key" + Keys.get.ytKey), "UTF-8"));
+        JSONObject jsonf = new JSONObject(IOUtils.toString(new URL("https://www.googleapis.com/youtube/v3/search?part=id%2C+snippet&q=" + q.replace(" ", "+") + "&key" + Keys.ytKey), "UTF-8"));
         JSONObject j = jsonf.getJSONArray("items").getJSONObject(0).getJSONObject("snippet");
         build(j.getString("title"), j.getString("channelTitle"), user, event);
     }

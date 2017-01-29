@@ -9,7 +9,7 @@ import com.andnopo.PikaBot.info.Keys;
 public class Bot {
     public static IDiscordClient client;
     public static void main(String[] args) throws DiscordException {
-        client = new ClientBuilder().withToken(Keys.get.botKey).setMaxReconnectAttempts(10).login();
+        client = new ClientBuilder().withToken(Keys.botKey).setMaxReconnectAttempts(10).login();
         client.getDispatcher().registerListener(new Listener());
     }
 }

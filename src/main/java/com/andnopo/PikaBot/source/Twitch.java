@@ -18,7 +18,7 @@ import java.net.URL;
 public class Twitch {
     public static void play(String v, IUser user, MessageReceivedEvent event) throws IOException, RateLimitException, DiscordException, MissingPermissionsException {
         String id = v;
-        JSONObject j = new JSONObject(IOUtils.toString(new URL("https://api.twitch.tv/kraken/channels/" + id + "?client_id=" + Keys.get.twKey), "UTF-8"));
+        JSONObject j = new JSONObject(IOUtils.toString(new URL("https://api.twitch.tv/kraken/channels/" + id + "?client_id=" + Keys.twKey), "UTF-8"));
         build(j.getString("display_name"), j.getString("status"), user, event);
     }
 
