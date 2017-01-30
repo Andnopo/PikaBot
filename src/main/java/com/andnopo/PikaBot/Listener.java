@@ -2,7 +2,6 @@ package com.andnopo.PikaBot;
 
 
 import com.andnopo.PikaBot.info.Command;
-import com.andnopo.PikaBot.source.Twitch;
 import com.andnopo.PikaBot.source.Youtube;
 import com.andnopo.PikaBot.utils.EasyEmbedBuilder;
 import com.andnopo.PikaBot.utils.Tools;
@@ -19,6 +18,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -30,6 +30,15 @@ public class Listener {
     @EventSubscriber
     public void onReady(ReadyEvent event) throws RateLimitException, DiscordException, IOException, ExecutionException, InterruptedException {
         System.out.println("Bot Status: Online");
+
+        try (FileWriter file = new FileWriter("info.json")) {
+
+            file.write("");
+            file.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         while (true) {
             Bot.client.changeStatus(Status.game(Bot.client.getGuilds().size() +" Guilds with " + Bot.client.getUsers().size() + " Members"));
@@ -57,12 +66,23 @@ public class Listener {
                     if (m.toLowerCase().startsWith("help")) {
                         event.getMessage().getChannel().sendMessage("", new EmbedBuilder().withColor(Color.decode("#ffec23")).withAuthorName("Pika Bot").withAuthorIcon("http://i.imgur.com/hFYlfGW.gif").withTitle("\uD83D\uDD0A Help \uD83D\uDD0A").withDescription("The prefix is " + Command.getPrefix() + "\n\uD83D\uDDA5️Bot Commands\uD83D\uDDA5\n" + Command.getPrefix() + "help | Displays this.\n" + Command.getPrefix() + "info | Gives you info on the bot\n" + Command.getPrefix() + "invite | Gives you a invite link for the bot.\n" + Command.getPrefix() + "join | Gives you a link to join the bot server.\n" + Command.getPrefix() + "ping | Sees the bot response time\n\uD83D\uDD08 Music Commands \uD83D\uDD08\n" + Command.getPrefix() + "play | Finds for music on youtube based on your search").withFooterIcon(event.getMessage().getAuthor().getAvatarURL()).withFooterText("Requested by " + event.getMessage().getAuthor().getName()).withTimestamp(System.currentTimeMillis()).build(), false);
 
-                        return;
+                            return;
                     }
 
                     if (m.toLowerCase().startsWith("info")) {
                         long uptime = rb.getUptime();
                         event.getMessage().getChannel().sendMessage("", new EmbedBuilder().withColor(Color.decode("#ffec23")).withAuthorName("Pika Bot").withAuthorIcon("http://i.imgur.com/hFYlfGW.gif").withDescription("⌛ Uptime " + String.valueOf(uptime) + "ms.\n\t\uD83D\uDCD6 Library | Discord4J | https://github.com/austinv11/Discord4J\n\uD83D\uDC64Owner | " + Bot.client.getUserByID("176427553169473546").mention() + " " + Bot.client.getUserByID("186627661219495936").mention() + "\n\uD83D\uDC65Devs | " + "\n").withFooterIcon(event.getMessage().getAuthor().getAvatarURL()).withFooterText("Requested by " + event.getMessage().getAuthor().getName()).withTimestamp(System.currentTimeMillis()).build(), false);
+                        return;
+                    }
+
+                    if (m.toLowerCase().startsWith("serverinfo")) {
+                        event.getMessage().getChannel().sendMessage("", new EmbedBuilder().withColor(Color.decode("#ffec23")).withAuthorName("Pika Bot").withAuthorIcon("http://i.imgur.com/hFYlfGW.gif").withTitle(guild).withThumbnail(event.getMessage().getGuild().getIconURL()).withDescription("\uD83D\uDC64Owner | " + event.getMessage().getGuild().getOwner().mention() + "\n\uD83D\uDC65Users | " + event.getMessage().getGuild().getUsers().size() + "\n\uD83D\uDCC4Text Channels | " + event.getMessage().getGuild().getChannels().size() + "\n\uD83C\uDF99Voice Channels | " + event.getMessage().getGuild().getVoiceChannels().size() + "\n\uD83C\uDFADRoles | " + event.getMessage().getGuild().getRoles().size() + "\n\uD83C\uDF9BVerification Level | " + event.getMessage().getGuild().getVerificationLevel()).withFooterIcon(event.getMessage().getAuthor().getAvatarURL()).withFooterText("Requested by " + event.getMessage().getAuthor().getName()).withTimestamp(System.currentTimeMillis()).build(), false);
+                        return;
+                    }
+
+                    if (m.toLowerCase().startsWith("userinfo")) {
+                        IUser usr = Bot.client.getUserByID(m.toLowerCase().replace("userinfo <@", "").replace(">", ""));
+                        event.getMessage().getChannel().sendMessage("", new EmbedBuilder().withColor(Color.decode("#ffec23")).withAuthorName("Pika Bot").withAuthorIcon("http://i.imgur.com/hFYlfGW.gif").withTitle(usr.getName()).withThumbnail(usr.getAvatarURL()).withDescription("\uD83D\uDC64Name | " + usr.mention() + "\n\uD83D\uDC65Roles | " + usr.getRolesForGuild(event.getMessage().getGuild()).size() + "\n\uD83C\uDF10Status | " + usr.getStatus().getStatusMessage() + "\n\uD83D\uDCBBPresence | " + usr.getPresence() + "\n\uD83D\uDCDDNickname | " + usr.getDisplayName(event.getMessage().getGuild()) + "\n\uD83D\uDCD1Real Name | " + usr.getName()).withFooterIcon(event.getMessage().getAuthor().getAvatarURL()).withFooterText("Requested by " + usr.getName()).withTimestamp(System.currentTimeMillis()).build(), false);
                         return;
                     }
 
@@ -79,36 +99,6 @@ public class Listener {
                     if (m.toLowerCase().startsWith("ping")) {
                         long uptime = rb.getUptime();
                         event.getMessage().getChannel().sendMessage("", new EmbedBuilder().withColor(Color.decode("#ffec23")).withAuthorName("Pika Bot").withAuthorIcon("http://i.imgur.com/hFYlfGW.gif").withDescription("\uD83C\uDFD3 PONG! " + String.valueOf(rb.getUptime() - uptime) + "ms.").withFooterIcon(event.getMessage().getAuthor().getAvatarURL()).withFooterText("Requested by " + event.getMessage().getAuthor().getName()).withTimestamp(System.currentTimeMillis()).build(), false);
-                        return;
-                    }
-
-                    if (m.toLowerCase().startsWith("serverinfo")) {
-                        event.getMessage().getChannel().sendMessage("", new EmbedBuilder().withColor(Color.decode("#ffec23")).withAuthorName("Pika Bot").withAuthorIcon("http://i.imgur.com/hFYlfGW.gif").withTitle(guild + " Info").withThumbnail(event.getMessage().getGuild().getIconURL()).withDescription("\uD83D\uDC64Owner | " + event.getMessage().getGuild().getOwner().mention()).withFooterIcon(event.getMessage().getAuthor().getAvatarURL()).withFooterText("Requested by " + event.getMessage().getAuthor().getName()).withTimestamp(System.currentTimeMillis()).build(), false);
-                        return;
-                    }
-
-                    if (m.toLowerCase().startsWith("youtube")) {
-                        String cmd = "youtube";
-                        String arg = m.replace(cmd + " ", "");
-                        Youtube.play(arg, user, event);
-                        return;
-                    }
-
-                    if (m.toLowerCase().startsWith("twitch")) {
-                        String cmd = "twitch";
-                        String arg = m.toLowerCase().replace(cmd + " ", "");
-                        Twitch.play(arg, user, event);
-                        return;
-                    }
-
-                    if (m.toLowerCase().startsWith("play ")) {
-                        String cmd = "play";
-                        String arg = m.toLowerCase().replace(cmd + " ", "");
-                        Youtube.find(arg, user, event);
-                        return;
-                    }
-
-                    if (m.toLowerCase().startsWith("stop")) {
                         return;
                     }
 

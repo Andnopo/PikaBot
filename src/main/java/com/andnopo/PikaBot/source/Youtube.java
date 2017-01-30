@@ -9,9 +9,11 @@ import org.json.JSONObject;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.DiscordException;
+import sx.blah.discord.util.EmbedBuilder;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
@@ -30,8 +32,8 @@ public class Youtube {
     }
 
 
-    private static void build(String song, String by, IUser user, MessageReceivedEvent event) throws RateLimitException, DiscordException, MissingPermissionsException {
+    public static void build(String song, String by, IUser user, MessageReceivedEvent event) throws RateLimitException, DiscordException, MissingPermissionsException {
         Tools.register("#E62117", song, "By: " + by, "Requested by " + user.getName(), user);
-        Tools.embed.send(event, EasyEmbedBuilder.build("#E62117", song, "By: " + by, "Requested by " + user.getName(), user));
+        event.getMessage().getChannel().sendMessage("", new EmbedBuilder().withColor(Color.decode("#E62117")).withAuthorName("Pika Bot").withAuthorIcon("http://i.imgur.com/hFYlfGW.gif").withTitle(song).withDescription("By: " + by).withFooterIcon(user.getAvatarURL()).withFooterText("Requested by " + user.getName()).withTimestamp(System.currentTimeMillis()).build(), false);
     }
 }

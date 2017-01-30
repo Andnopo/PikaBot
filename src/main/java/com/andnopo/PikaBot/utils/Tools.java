@@ -49,7 +49,5 @@ public class Tools {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.print(obj);
     }
 }
