@@ -1,0 +1,2 @@
+# PikaBot
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f6b0b4caf5584579889a5f2f132ef4ad)](https://www.codacy.com/app/Andnopomc/PikaBot?utm_source=github.com&utm_medium=referral&utm_content=Andnopomc/PikaBot&utm_campaign=badger)
